@@ -1,9 +1,17 @@
-let usuario= null;
-let token= null;
 
 const url = ( window.location.hostname.includes('localhost') )
-            ? 'http://localhost:8080/api/auth/'
-            : 'https://restserver-curso-fher.herokuapp.com/api/auth/';
+? 'http://localhost:8080/api/auth/'
+: 'https://restserver-curso-fher.herokuapp.com/api/auth/';
+
+let usuario= null;
+let socket= null;
+
+// Referencias HTML
+const txtUid= document.querySelector('#txtUid');
+const txtMensaje= document.querySelector('#txtMensaje');
+const ulUsuarios= document.querySelector('#ulUsuarios');
+const ulMensajes= document.querySelector('#ulMensajes');
+const btnSalir= document.querySelector('#btnSalir');
 
 
 // Validar el token de Local Storage
@@ -28,10 +36,30 @@ const validarJWT= async()=> {
 }
 
 const conectarSocket= async()=> {
-    const socket= io({
+    socket= io({
         'extraHeaders': {
             'x-token': localStorage.getItem('token'),
         } 
+    });
+
+    socket.on('connect', ()=> {
+        console.log('Sockets online');
+    });
+
+    socket.on('disconnect', ()=> {
+        console.log('Sockets Offline');
+    });
+
+    socket.on('recibir-mensajes', ()=> {
+        // TODO:
+    });
+
+    socket.on('usuarios-activos', ()=> {
+        // TODO:
+    });
+
+    socket.on('mensaje-privado', ()=> {
+        // TODO:
     });
 }
 
