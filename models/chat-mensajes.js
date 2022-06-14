@@ -26,11 +26,11 @@ class ChatMensajes{
     }
 
     conectarUsuario( usuario ){
-        this.usuarios[usuario.uid]= usuario;
+        this.usuarios[usuario._id]= usuario;
     }
 
     usuarioDesconectado( id ){
-        delete this.usuarios[ uid ];
+        delete this.usuarios[ id ];
     }
 }
 

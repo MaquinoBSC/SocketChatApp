@@ -7,6 +7,7 @@ const url = ( window.location.hostname.includes('localhost') )
 
 miFormulario.addEventListener('submit', ev => {
     ev.preventDefault();
+    
     const formData= {};
 
     for( let el of miFormulario.elements ){
