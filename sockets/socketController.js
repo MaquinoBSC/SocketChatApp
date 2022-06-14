@@ -16,6 +16,7 @@ const socketController= async ( socket= new Socket, io )=> {
     // Hacemos uso de la instancia io debido a que es el servidor de socket y este tiene a todos los clientes que estan conectados 
     chatMensajes.conectarUsuario( usuario );
     io.emit('usuarios-activos', chatMensajes.usuariosArr );
+    socket.emit('recibir-mensajes', chatMensajes.ultimos10 );
     
     // Limpiar cuando alguien se desconecta
     // usamos socket pues este es el que mantiene la conexion directa con cada uno de los clientes

@@ -50,14 +50,9 @@ const conectarSocket= async()=> {
         console.log('Sockets Offline');
     });
 
-    socket.on('recibir-mensajes', ( payload )=> {
-        // TODO:
-        console.log( payload );
-    });
+    socket.on('recibir-mensajes', ( payload )=> dibujarMensajes( payload ));
     
-    socket.on('usuarios-activos', ( payload )=> {
-        dibujarUsuarios( payload );
-    });
+    socket.on('usuarios-activos', ( payload )=> dibujarUsuarios( payload ));
 
     socket.on('mensaje-privado', ()=> {
         // TODO:
@@ -90,6 +85,21 @@ txtMensaje.addEventListener('keyup', ({ keyCode })=> {
     socket.emit('enviar-mensaje', { mensaje, uid });
     txtMensaje.value= '';
 });
+
+const dibujarMensajes= ( mensajes= [] )=> {
+    let mensajesHtml= '';
+    mensajes.forEach(({ mensaje, nombre })=> {
+        mensajesHtml+= `
+            <li>
+                <p>
+                    <span class="text-primary"> ${ nombre } </span>
+                    <span> ${ mensaje } </span>
+                </p>
+            </li>
+        `;
+    });
+    ulMensajes.innerHTML= mensajesHtml;
+}
 
 const main= async()=> {
     await validarJWT();
