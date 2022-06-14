@@ -50,19 +50,46 @@ const conectarSocket= async()=> {
         console.log('Sockets Offline');
     });
 
-    socket.on('recibir-mensajes', ()=> {
+    socket.on('recibir-mensajes', ( payload )=> {
         // TODO:
+        console.log( payload );
     });
     
     socket.on('usuarios-activos', ( payload )=> {
-        // TODO:
-        console.log(payload);
+        dibujarUsuarios( payload );
     });
 
     socket.on('mensaje-privado', ()=> {
         // TODO:
     });
 }
+
+const dibujarUsuarios= ( usuarios= [] )=> {
+    let usersHtml= '';
+    usuarios.forEach(({ nombre, uid })=> {
+        usersHtml+= `
+            <li>
+                <p>
+                    <h5 class="text-success"> ${ nombre } </h5>
+                    <span class="fs-6 text-muted"> ${ uid } </span>
+                </p>
+            </li>
+        `;
+    });
+    ulUsuarios.innerHTML= usersHtml;
+}
+
+txtMensaje.addEventListener('keyup', ({ keyCode })=> {
+    const mensaje= txtMensaje.value;
+    const uid= txtUid.value;
+
+    if( keyCode !== 13 ){ return; }
+    if( mensaje.length === 0 ) { return; }
+    
+    // Hacemos envio de mensaje al server socket
+    socket.emit('enviar-mensaje', { mensaje, uid });
+    txtMensaje.value= '';
+});
 
 const main= async()=> {
     await validarJWT();
