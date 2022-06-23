@@ -11,7 +11,6 @@ const usuario = {
 }
 
 socket.on('connect', function() {
-    console.log('Conectado al servidor');
     socket.emit('entrar-chat', usuario, (resp)=> {
         console.log(resp);
     });
@@ -34,8 +33,14 @@ socket.emit('enviarMensaje', {
 });
 
 // Escuchar información
-socket.on('enviarMensaje', function(mensaje) {
-
+socket.on('crear-mensaje', (mensaje) => {
     console.log('Servidor:', mensaje);
+
+});
+
+// Escuchar cambio de usuario
+// cuando un usuario entra o sale del chat
+socket.on('lista-personas', (personas) => {
+    console.log(personas);
 
 });

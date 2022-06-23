@@ -12,7 +12,15 @@ io.on('connection', (client) => {
             });
         }
 
-        let personas= usuarios.agregarPersona(client.id, usuario.nombre);
+        
+        let personas = usuarios.agregarPersona(client.id, usuario.nombre);
+        client.broadcast.emit('lista-personas', usuarios.getPersonas());
         callback(personas);
+    });
+
+    client.on('disconnect', () => {
+        let personaBorrada = usuarios.borrarPersona(client.id);
+        client.broadcast.emit('crear-mensaje', { usuario: 'Administrador', mensaje: `${personaBorrada.nombre} salió del chat`});
+        client.broadcast.emit('lista-personas', usuarios.getPersonas());
     });
 });
