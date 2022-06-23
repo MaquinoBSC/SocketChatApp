@@ -44,3 +44,7 @@ socket.on('lista-personas', (personas) => {
     console.log(personas);
 
 });
+
+socket.on('mensaje-privado', (mensaje)=> {
+    console.log(mensaje);
+});
