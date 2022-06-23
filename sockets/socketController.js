@@ -20,7 +20,7 @@ const socketController= async ( socket= new Socket, io )=> {
 
     // CONECTARLO A UNA SALA ESPECIAL
     // Esto es para enviar mensajes privados
-    socket.join( usuario._id.toString() );
+    socket.join( usuario._id.toString() ); // En este caso el id es de tipo object debido a que es un id de mongo y viene directamente de la DB
     
     // Limpiar cuando alguien se desconecta
     // usamos socket pues este es el que mantiene la conexion directa con cada uno de los clientes
