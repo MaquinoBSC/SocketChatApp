@@ -7,6 +7,7 @@ const usuarios = new Usuarios();
 
 io.on('connection', (client) => {
     client.on('entrar-chat', (usuario, callback)=> {
+        console.log(usuario);
         if(!usuario.nombre){
             return callback({
                 success: false,
@@ -37,4 +38,6 @@ io.on('connection', (client) => {
         let persona= usuarios.getPersona(client.id);
         client.broadcast.to(data.para).emit('mensaje-privado', crearMensaje(persona.nombre, data.mensaje));
     });
+
+
 });
