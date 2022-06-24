@@ -18,8 +18,8 @@ class Usuarios {
         return this.personas;
     }
 
-    getPersonaBySala(){
-        // #TODO:
+    getPersonaBySala(sala){
+        return this.personas.filter(persona => persona.sala === sala);
     }
 
     borrarPersona(id){
