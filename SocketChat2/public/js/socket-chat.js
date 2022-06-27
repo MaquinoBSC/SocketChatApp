@@ -26,7 +26,8 @@ socket.on('disconnect', () => {
 
 // Escuchar información
 socket.on('crear-mensaje', (mensaje) => {
-    renderizarMensajes(mensaje);
+    renderizarMensajes(mensaje, false);
+    scrollBottom();
 });
 
 // Escuchar cambios de usuarios

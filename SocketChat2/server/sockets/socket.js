@@ -18,6 +18,7 @@ io.on('connection', (client) => {
 
         usuarios.agregarPersona(client.id, usuario.nombre, usuario.sala);
         client.broadcast.to(usuario.sala).emit('lista-personas', usuarios.getPersonaBySala(usuario.sala));
+        client.broadcast.to(usuario.sala).emit('crear-mensaje', crearMensaje('Administrador', `${usuario.nombre} se unio`));
         callback(usuarios.getPersonaBySala(usuario.sala));
     });
 
